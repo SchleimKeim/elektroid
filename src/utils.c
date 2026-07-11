@@ -242,12 +242,12 @@ get_system_startup_path (const gchar *local_dir)
       if (dir)
 	{
 	  startup_path = strdup (local_dir);
+	  closedir (dir);
 	}
       else
 	{
 	  error_print ("Unable to open dir '%s'", local_dir);
 	}
-      closedir (dir);
     }
 
   if (!startup_path)
