@@ -1016,7 +1016,7 @@ elektron_read_common_dir (struct backend *backend,
   GByteArray *tx_msg, *rx_msg = NULL;
   gboolean is_file = file_exists (backend, dir);
 
-  usleep (BE_REST_TIME_US);
+  g_usleep (BE_REST_TIME_US);
 
   if (is_file)
     {
@@ -1438,7 +1438,7 @@ elektron_upload_smplrw (struct backend *backend, const gchar *path,
 
       active = controllable_is_active (&control->controllable);
 
-      usleep (BE_REST_TIME_US);
+      g_usleep (BE_REST_TIME_US);
     }
 
   debug_print (2, "%d bytes sent", transferred);
@@ -1618,7 +1618,7 @@ elektron_download_smplrw (struct backend *backend, const gchar *path,
 
       active = controllable_is_active (&control->controllable);
 
-      usleep (BE_REST_TIME_US);
+      g_usleep (BE_REST_TIME_US);
     }
 
   debug_print (2, "%d bytes received", next_block_start);
@@ -1806,7 +1806,7 @@ elektron_upgrade_os (struct backend *backend, struct sysex_transfer *transfer,
 
       free_msg (rx_msg);
 
-      usleep (BE_REST_TIME_US);
+      g_usleep (BE_REST_TIME_US);
 
       if (!controllable_is_active (controllable))
 	{
@@ -2546,7 +2546,7 @@ elektron_download_data_prefix (struct backend *backend, const gchar *path,
       return -EIO;
     }
 
-  usleep (BE_REST_TIME_US);
+  g_usleep (BE_REST_TIME_US);
 
   content = g_byte_array_sized_new (4 * MI);
 
@@ -2621,7 +2621,7 @@ elektron_download_data_prefix (struct backend *backend, const gchar *path,
 
       active = controllable_is_active (&control->controllable);
 
-      usleep (BE_REST_TIME_US);
+      g_usleep (BE_REST_TIME_US);
     }
 
   if (active)
@@ -3039,7 +3039,7 @@ elektron_upload_data_list_prefix (struct backend *backend, const gchar *path,
       goto end;
     }
 
-  usleep (BE_REST_TIME_US);
+  g_usleep (BE_REST_TIME_US);
 
   jidbe = g_htonl (jid);
 
@@ -3088,7 +3088,7 @@ elektron_upload_data_list_prefix (struct backend *backend, const gchar *path,
 	      goto end;
 	    }
 
-	  usleep (BE_REST_TIME_US);
+	  g_usleep (BE_REST_TIME_US);
 
 	  if (!elektron_get_msg_status (rx_msg))
 	    {
@@ -3470,7 +3470,7 @@ elektron_ram_clear_sample (struct backend *backend, const gchar *path)
       return -EIO;
     }
 
-  usleep (BE_REST_TIME_US);
+  g_usleep (BE_REST_TIME_US);
 
   return 0;
 }
@@ -3510,7 +3510,7 @@ elektron_ram_download_sample (struct backend *backend,
 
   item_iterator_free (&iter);
 
-  usleep (BE_REST_TIME_US);
+  g_usleep (BE_REST_TIME_US);
 
   if (sample_path[0] == 0)
     {
@@ -3569,9 +3569,9 @@ elektron_ram_set_sample (struct backend *backend,
   free_msg (rx_msg);
 
   // It takes a while for the result to be available
-  usleep (500000);
+  g_usleep (500000);
   task_control_set_progress (control, 0.5);
-  usleep (500000);
+  g_usleep (500000);
   task_control_set_progress (control, 1.0);
 
   return 0;
@@ -4464,7 +4464,7 @@ elektron_handshake (struct backend *backend)
       return -ENODEV;
     }
 
-  usleep (BE_REST_TIME_US);
+  g_usleep (BE_REST_TIME_US);
 
   tx_msg = elektron_new_msg (SOFTWARE_VERSION_REQUEST,
 			     sizeof (SOFTWARE_VERSION_REQUEST));
@@ -4479,7 +4479,7 @@ elektron_handshake (struct backend *backend)
   snprintf (backend->version, LABEL_MAX, "%s", (gchar *) & rx_msg->data[10]);
   free_msg (rx_msg);
 
-  usleep (BE_REST_TIME_US);
+  g_usleep (BE_REST_TIME_US);
 
   if (debug_level > 1)
     {
@@ -4492,7 +4492,7 @@ elektron_handshake (struct backend *backend)
 	  free_msg (rx_msg);
 	}
 
-      usleep (BE_REST_TIME_US);
+      g_usleep (BE_REST_TIME_US);
     }
 
   snprintf (backend->description, LABEL_MAX, "%s", overbridge_name);

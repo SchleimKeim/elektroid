@@ -1068,7 +1068,7 @@ logue_upload (struct backend *backend, const gchar *path,
 
   free_msg (rx_msg);
 
-  usleep (LOGUE_REST_TIME_US);
+  g_usleep (LOGUE_REST_TIME_US);
 
 end:
   return err;
@@ -1469,7 +1469,7 @@ logue_download (struct backend *backend, const gchar *path,
       idata_clear (&sysex);
     }
 
-  usleep (LOGUE_REST_TIME_US);
+  g_usleep (LOGUE_REST_TIME_US);
 
   return err;
 }

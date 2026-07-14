@@ -161,7 +161,7 @@ efactor_read_dir (struct backend *backend, struct item_iterator *iter,
     {
       //Reading from the device switches off and on the internal relays.
       //In case we call this function again just after calling it, we give the device some time to do it.
-      usleep (1000000);
+      g_usleep (1000000);
     }
 
   tx_msg = efactor_new_op_msg (EFACTOR_OP_PRESETS_WANT);
@@ -244,7 +244,7 @@ efactor_download (struct backend *backend, const gchar *path,
 
   idata_init (preset, output, strdup (name), NULL, NULL);
 
-  usleep (1000000);
+  g_usleep (1000000);
 
   return err;
 }
@@ -314,7 +314,7 @@ efactor_upload (struct backend *backend, const gchar *path,
   err = common_data_tx (backend, tx_msg, control);
   free_msg (tx_msg);
 end:
-  usleep (EFACTOR_WRITE_SLEEP_TIME_US);
+  g_usleep (EFACTOR_WRITE_SLEEP_TIME_US);
   return err;
 }
 
@@ -371,7 +371,7 @@ efactor_rename (struct backend *backend, const gchar *src, const gchar *dst)
       free_msg (rx_msg);
     }
 
-  usleep (EFACTOR_WRITE_SLEEP_TIME_US);
+  g_usleep (EFACTOR_WRITE_SLEEP_TIME_US);
 
 end:
   controllable_clear (&control.controllable);
