@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: Fedora CI
 
 on:
   push:
@@ -15,7 +15,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: install dependencies
       run: |
-          sudo dnf update
+          sudo dnf update -y
           sudo dnf install -y automake autoconf libtool alsa-lib-devel zlib-devel libzip-devel gtk3-devel libsndfile-devel libsamplerate-devel pulseaudio-libs-devel gettext-devel json-glib-devel rubberband-devel
     - name: autoreconf
       run: autoreconf --install
@@ -24,6 +24,6 @@ jobs:
     - name: make
       run: make
     - name: make check
-      run: make check
+      run: make check || (cat test/*.log; exit 1)
     - name: make distcheck
-      run: make distcheck
+      run: make clean distcheck
