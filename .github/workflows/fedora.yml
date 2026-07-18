@@ -16,8 +16,7 @@ jobs:
     - name: install dependencies
       run: |
           sudo dnf update
-          sudo dnf -y --no-install-recommends install automake libtool build-essential libasound2-dev libgtk-3-dev libpulse-dev libsndfile1-dev libsamplerate0-dev autopoint gettext zlib1g-dev libjson-glib-dev libzip-dev librubberband-dev
-          sudo dnf -y --no-install-recommends install libcunit1-dev
+          sudo dnf install -y automake autoconf libtool alsa-lib-devel zlib-devel libzip-devel gtk3-devel libsndfile-devel libsamplerate-devel pulseaudio-libs-devel gettext-devel json-glib-devel rubberband-devel
     - name: autoreconf
       run: autoreconf --install
     - name: configure
